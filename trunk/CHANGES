@@ -1,0 +1,11 @@
+pdf2image 0.40
+=======================
+-updated Xpdf to 3.01p2
+-improved the output of complex mode documents
+-fixed links, They should not include text that should not be part of the link anymore.
+
+pdf2image 0.49
+=======================
+-updated Xpdf to 3.02
+-added support for freetype in both linux and windows & added support for splash to allow rasterizing of images
+-fixed issue with GString for WIN32
