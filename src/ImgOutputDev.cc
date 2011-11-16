@@ -673,14 +673,17 @@ void HtmlPage::dumpAsXML(FILE* f,int page, GBool passedFirstPage){
 		  if(passedFirst){
 		    fprintf(f,",");
 		  }
-	      	  fprintf(f,"{\"t\":%d,\"l\":%d,",xoutRound(tmp->yMin),xoutRound(tmp->xMin));	
-		  fprintf(f,"\"w\":%d,\"h\":%d,",xoutRound(tmp->xMax-tmp->xMin),xoutRound(tmp->yMax-tmp->yMin));
-		  fprintf(f,"\"f\":%d,\"d\":\"", tmp->fontpos);
+          //fprintf(f,"{\"t\":%d,\"l\":%d,",xoutRound(tmp->yMin),xoutRound(tmp->xMin));	
+		  //fprintf(f,"\"w\":%d,\"h\":%d,",xoutRound(tmp->xMax-tmp->xMin),xoutRound(tmp->yMax-tmp->yMin));
+		  //fprintf(f,"\"f\":%d,\"d\":\"", tmp->fontpos);
+          fprintf(f,"[%d,%d,",xoutRound(tmp->yMin),xoutRound(tmp->xMin));       
+          fprintf(f,"%d,%d,",xoutRound(tmp->xMax-tmp->xMin),xoutRound(tmp->yMax-tmp->yMin));
+          fprintf(f,"%d,\"", tmp->fontpos);                       
 		  if (tmp->fontpos!=-1){
 		     str1=fonts->getCSStyle(tmp->fontpos, str);
 		  }
 		  fputs(str1->getCString(),f);
-		  fprintf(f,"\"}");
+		  fprintf(f,"\"]");
 		  passedFirst = true;
 	      }else{
 		  fprintf(f,"<t t=\"%d\" l=\"%d\" ",xoutRound(tmp->yMin),xoutRound(tmp->xMin));
@@ -891,7 +894,13 @@ ImgOutputDev::~ImgOutputDev() {
 
 
 
-void ImgOutputDev::startPage(int pageNum, GfxState *state) {
+void ImgOutputDev::startPage(int pageNum, GfxState *state,double crop_x1, double crop_y1, double crop_x2, double crop_y2) {
+  double x1,y1,x2,y2;
+  state->transform(crop_x1,crop_y1,&x1,&y1);
+  state->transform(crop_x2,crop_y2,&x2,&y2);
+  if(x2<x1) {double x3=x1;x1=x2;x2=x3;}
+  if(y2<y1) {double y3=y1;y1=y2;y2=y3;}
+    
   this->pageNum = pageNum;
   GString *str=basename(Docname);
   pages->clear(); 
@@ -907,8 +916,11 @@ void ImgOutputDev::startPage(int pageNum, GfxState *state) {
     }
   }
 
-  pages->pageWidth=static_cast<int>(state->getPageWidth());
-  pages->pageHeight=static_cast<int>(state->getPageHeight());
+//  pages->pageWidth=static_cast<int>(state->getPageWidth());
+ // pages->pageHeight=static_cast<int>(state->getPageHeight());
+   
+  pages->pageWidth = (int)(x2-x1);
+  pages->pageHeight = (int)(y2-y1);
 
   delete str;
 } 

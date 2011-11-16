@@ -454,7 +454,12 @@ Gfx::Gfx(XRef *xrefA, OutputDev *outA, int pageNum, Dict *resDict,
   fontChanged = gFalse;
   clip = clipNone;
   ignoreUndef = 0;
-  out->startPage(pageNum, state);
+  //out->startPage(pageNum, state);
+  if(cropBox) {
+      out->startPage(pageNum, state, cropBox->x1,cropBox->y1,cropBox->x2,cropBox->y2);
+  } else {
+      out->startPage(pageNum, state, 0,0,0,0);
+  }
   out->setDefaultCTM(state->getCTM());
   out->updateAll(state);
   for (i = 0; i < 6; ++i) {
