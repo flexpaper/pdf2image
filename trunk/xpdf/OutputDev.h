@@ -94,7 +94,7 @@ public:
     { return gTrue; }
 
   // Start a page.
-  virtual void startPage(int pageNum, GfxState *state) {}
+  virtual void startPage(int pageNum, GfxState *state, double x1,double y1,double x2,double y2) {}
 
   // End a page.
   virtual void endPage() {}
