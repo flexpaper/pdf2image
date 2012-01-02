@@ -1,3 +1,8 @@
+pdf2image 0.51
+=======================
+- fixed issue related to new compression of JSON data
+- added configuration scripts
+
 pdf2image 0.40
 =======================
 -updated Xpdf to 3.01p2
