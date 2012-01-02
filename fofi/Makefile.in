@@ -14,13 +14,13 @@ VPATH = @srcdir@
 GOOSRCDIR = $(srcdir)/../goo
 GOOLIBDIR = ../goo
 
-CXXFLAGS = @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(srcdir)
+CXXFLAGS = -I/usr/local/include/freetype2 -I/usr/local/include @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(srcdir)
 
 CXX = @CXX@
-AR = @AR@
-RANLIB = @RANLIB@
+AR = ar rc
+RANLIB = ranlib
 
-LIBPREFIX = @LIBPREFIX@
+LIBPREFIX = lib
 
 #------------------------------------------------------------------------
 
@@ -57,9 +57,10 @@ $(LIBPREFIX)fofi.a: $(FOFI_OBJS)
 	$(RANLIB) $(LIBPREFIX)fofi.a
 
 #------------------------------------------------------------------------
+FOFI_WINOBJS = libfofi.lib FoFiBase.obj FoFiEncodings.obj FoFiTrueType.obj FoFiType1C.obj FoFiType1.obj
 
 clean:
-	rm -f $(FOFI_OBJS) $(LIBPREFIX)fofi.a
+	rm -f $(FOFI_OBJS) $(LIBPREFIX)fofi.a $(FOFI_WINOBJS)
 
 #------------------------------------------------------------------------
 
@@ -67,3 +68,4 @@ depend:
 	$(CXX) $(CXXFLAGS) -MM $(CXX_SRC) >Makefile.dep
 
 include Makefile.dep
+

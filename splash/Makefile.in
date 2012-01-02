@@ -16,13 +16,13 @@ GOOLIBDIR = ../goo
 FOFISRCDIR = $(srcdir)/../fofi
 FOFILIBDIR = ../fofi
 
-CXXFLAGS = @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(srcdir) @t1_CFLAGS@ @freetype2_CFLAGS@
+CXXFLAGS = -I/usr/local/include/freetype2 -I/usr/local/include @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(srcdir)
 
 CXX = @CXX@
-AR = @AR@
-RANLIB = @RANLIB@
+AR = ar rc
+RANLIB = ranlib
 
-LIBPREFIX = @LIBPREFIX@
+LIBPREFIX = lib
 
 #------------------------------------------------------------------------
 
@@ -87,9 +87,13 @@ $(LIBPREFIX)splash.a: $(SPLASH_OBJS)
 	$(RANLIB) $(LIBPREFIX)splash.a
 
 #------------------------------------------------------------------------
-
+SPLASH_WINOBJS = libsplash.lib SplashBitmap.obj SplashFontFile.obj SplashFTFont.obj SplashScreen.obj SplashT1Font.obj \
+SplashClip.obj SplashFont.obj Splash.obj SplashState.obj SplashXPath.obj \
+SplashFontEngine.obj  SplashFTFontEngine.obj  SplashPath.obj     SplashT1FontEngine.obj  SplashXPathScanner.obj \
+SplashFontFileID.obj  SplashFTFontFile.obj    SplashPattern.obj  SplashT1FontFile.obj
+ 
 clean:
-	rm -f $(SPLASH_OBJS) $(LIBPREFIX)splash.a
+	rm -f $(SPLASH_OBJS) $(LIBPREFIX)splash.a $(SPLASH_WINOBJS)
 
 #------------------------------------------------------------------------
 
