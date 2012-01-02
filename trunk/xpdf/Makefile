@@ -19,18 +19,18 @@ FOFILIBDIR = ../fofi
 SPLASHSRCDIR = $(srcdir)/../splash
 SPLASHLIBDIR = ../splash
 
-CXXFLAGS = -I/usr/local/include/freetype2 -I/usr/local/include -DHAVE_CONFIG_H -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(SPLASHSRCDIR) -I$(srcdir)          
+CXXFLAGS = -I/usr/local/include/freetype2 -I/usr/local/include -g -O2 -DHAVE_CONFIG_H -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(SPLASHSRCDIR) -I$(srcdir)
 
 LDFLAGS = 
 
-T1LIBS = 
+T1LIBS = @t1_LIBS@
 FTLIBS = -lfreetype
 
-XLIBS =         -lX11 
+XLIBS = -lX11
 
 SPLASHLIBS = -L$(SPLASHLIBDIR) -lsplash
 
-OTHERLIBS =   \
+OTHERLIBS =  \
 	-L$(FOFILIBDIR) -lfofi \
 	-L$(GOOLIBDIR) -lGoo
 

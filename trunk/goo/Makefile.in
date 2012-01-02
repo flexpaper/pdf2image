@@ -12,14 +12,14 @@ srcdir = @srcdir@
 VPATH = @srcdir@
 
 CFLAGS = @CFLAGS@ @DEFS@ -I.. -I$(srcdir)
-CXXFLAGS = @CXXFLAGS@ @DEFS@ -I.. -I$(srcdir)
+CXXFLAGS = -I/usr/local/include/freetype2 -I/usr/local/include @CXXFLAGS@ @DEFS@ -I.. -I$(srcdir)
 
 CC = @CC@
 CXX = @CXX@
-AR = @AR@
-RANLIB = @RANLIB@
+AR = ar rc
+RANLIB = ranlib
 
-LIBPREFIX = @LIBPREFIX@
+LIBPREFIX = lib
 
 #------------------------------------------------------------------------
 
@@ -51,6 +51,7 @@ all: $(LIBPREFIX)Goo.a
 GOO_CXX_OBJS = GHash.o GList.o GString.o gmem.o gmempp.o gfile.o FixedPoint.o
 GOO_C_OBJS = parseargs.o
 GOO_OBJS = $(GOO_CXX_OBJS) $(GOO_C_OBJS)
+GOO_WINOBJS = libGoo.lib
 
 $(LIBPREFIX)Goo.a: $(GOO_OBJS)
 	rm -f $(LIBPREFIX)Goo.a
@@ -60,7 +61,7 @@ $(LIBPREFIX)Goo.a: $(GOO_OBJS)
 #------------------------------------------------------------------------
 
 clean:
-	rm -f $(GOO_OBJS) $(LIBPREFIX)Goo.a
+	rm -f $(GOO_OBJS) $(LIBPREFIX)Goo.a $(GOO_WINOBJS)
 
 #------------------------------------------------------------------------
 
