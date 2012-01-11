@@ -280,7 +280,8 @@ static GString* EscapeSpecialChars( GString* s)
             case '\'': replace = "\\u0027";  break;
             case '&': replace = "\\u0026";  break;
             case '\n': replace = "";  break;
-            case '\r': replace = "";  break;                    
+            case '\r': replace = "";  break;
+            case '\t': replace = "";  break;
             default: continue;
         }
 	    if( replace ){
